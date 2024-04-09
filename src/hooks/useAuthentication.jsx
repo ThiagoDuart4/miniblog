@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
+
 } from "firebase/auth";
 
 import { useState, useEffect } from "react";
@@ -13,7 +14,6 @@ import { useState, useEffect } from "react";
 export const useAuthentication = () => {
   const [err, setErr] = useState(null)
   const [loading, setLoading] = useState(null)
-
   const [cancelled, setCancelled] = useState(null)
 
   const auth = getAuth()
@@ -66,6 +66,52 @@ export const useAuthentication = () => {
     setLoading(false)
   }
 
+
+  // LOgout
+
+const logout =()=>{
+checkifIsCancelled()
+
+  signOut(auth)
+}
+
+// LOGIN 
+
+const login = async (data)=>{
+  checkifIsCancelled()
+
+  setLoading(true)
+  setErr(false)
+
+
+try  {
+  await signInWithEmailAndPassword(auth, data.email, data.password)
+} catch (error) {
+
+  let  systemErrorMessage
+
+
+  if(error.message.includes('wrong-password')){
+      systemErrorMessage = 'Usuario ou senha incorretos'
+    }
+    else if(error.message.includes('user-not-found')){
+      systemErrorMessage = 'Usuario ou senha incorreto'
+    }
+    else{
+  systemErrorMessage = 'Ocorreu um error, por favor tente mais tarde'
+}
+
+setErr(systemErrorMessage)
+setLoading(false)
+}
+
+
+}
+
+
+
+
+
   useEffect(() => {
     return () => { setCancelled(true) }
   }, [])
@@ -76,7 +122,9 @@ export const useAuthentication = () => {
     auth,
     createUser,
     err,
-    loading
+    loading,
+    login,
+    logout
   }
 }
 

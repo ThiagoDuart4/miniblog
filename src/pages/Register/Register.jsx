@@ -40,7 +40,7 @@ const Register = () => {
   return (
 
     <div className={styles.register}>
-      <h1>Cadastrando  Post</h1>
+      <h1>Cadastre-se</h1>
       <form onSubmit={handleSubmit} >
         <label >
           Name:
