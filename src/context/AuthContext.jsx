@@ -1,14 +1,14 @@
 // CONTEXT: uma forma de pegar uma informação de forma geral na nosso aplicação, nesse caso iremos pegar o usuario
 
+// criando um contexto base 
+import { useContext, createContext } from "react";
 
-import { useContext,createContext } from "react";
+const AuthContext = createContext();
 
-const AuthContext = createContext()
-
-export function AuthProvider({children,value}) {
-     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+export function AuthProvider({ children, value }) {
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthValue() {
-    return useContext(AuthContext)
+  return useContext(AuthContext);
 }
