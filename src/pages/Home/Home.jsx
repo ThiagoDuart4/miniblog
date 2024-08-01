@@ -47,7 +47,7 @@ const Home = () => {
         ) : (
           <div className={styles.noposts}>
             <p>não foram encontrados posts</p>
-            <Link to='/post/create' className="btn btn dark">
+            <Link to='/posts/create' className="btn btn dark">
               Criar primeiro post
             </Link>
           </div>
