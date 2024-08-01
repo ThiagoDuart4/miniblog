@@ -44,6 +44,7 @@ const Register = () => {
       <h1>Cadastre-se</h1>
       <form onSubmit={handleSubmit}>
         <label>
+          Nome:
           <input
             type="text"
             name="name"
