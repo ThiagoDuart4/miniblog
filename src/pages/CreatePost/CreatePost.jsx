@@ -12,33 +12,63 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [body, setBody] = useState("");
-  const [tag, setTag] = useState("");
+  const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState("");
-  const [loading,setLoading] = useState('')
 
-const {insertDocument,response} = useInsertDocument()
+
+const {insertDocument,response} = useInsertDocument('posts')
 const {user} = useAuthValue()
 
-console.log(response.error)
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormError('')
+console.log(user)
+const navigate = useNavigate()
 
-    insertDocument({
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setFormError('');
+
+  let error = '';
+
+  // Validate the image URL
+  try {
+      new URL(image);
+  } catch (error) {
+      error = 'Insira uma URL no campo IMAGE';
+      setFormError(error);
+  }
+
+  // Split and clean tags
+  const tagsArray = tags.split('.').map(tag => tag.trim().toLocaleLowerCase());
+
+  // Check for empty fields
+  if (!title || !image || !tags || !body) {
+      error = 'Por favor, preencha todos os campos!';
+      setFormError(error);
+  }
+
+  // If there's any error, prevent form submission
+  if (error) {
+      return;
+  }
+
+  // Insert document if no errors
+  insertDocument({
       title,
       image,
       body,
-      tag,
-      uid:user.uid,
-      createdBy:user.displayName
-    })
-  };
+      tagsArray,
+      uid: user.uid,
+      createdBy: user.displayName
+  });
+
+   navigate("/")
+};
   return (
     <div className={styles.CreatePost}>
       <h2>Criar Post</h2>
       <p>Compartilhe aqui os melhores momentos do nosso culto Start</p>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           Titulo
           <input
@@ -82,23 +112,23 @@ console.log(response.error)
             type="text"
             name="title"
             required
-            placeholder="Pense em um bom"
-            value={tag}
+            placeholder="Pense em uma tag...."
+            value={tags}
             onChange={(e) => {
-              setTag(e.target.value);
+              setTags(e.target.value);
             }}
           />
         </label>
 
-        {!response.loading && <button type="submit"> Enviar</button>}
+        {!response.loading && <button className="btn">Criar post!</button>}
         {response.loading && (
-          <button type="submit" disabled>
-            {" "}
-            aguarde...
+          <button className="btn" disabled>
+            Aguarde.. .
           </button>
         )}
-        {response.error && <p className="error">{response.error}</p>}
-       
+        {(response.error || formError) && (
+          <p className="error">{response.error || formError}</p>
+        )}
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 // CONTEXT: uma forma de pegar uma informação de forma geral na nosso aplicação, nesse caso iremos pegar o usuario
 
+// criando um contexto base 
 import { useContext, createContext } from "react";
 
 const AuthContext = createContext();

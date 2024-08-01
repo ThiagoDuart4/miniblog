@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter,Routes,Route,Navigate} from "react-router-dom"
 
 import Home from './pages/Home/Home';
+import Search from './pages/Search/search';
 import About from './pages/About/About';
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register';
@@ -52,6 +53,7 @@ return <p>Carregando...</p>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/about' element={<About/>}/>
+              <Route path='/search' element={<Search/>}/>
               <Route path='/login' element={!user  ? <Login/> : <Navigate to="/"/>}/>
               <Route path='/registrar' element={!user ? <Register/> : <Navigate to ='/'/>}/>
               <Route path='/posts/create' element={ user ? <CreatePost/>: <Navigate to ='/'/>}/>

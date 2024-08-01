@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../components/Footer.module.css";
+// Footer do site, todas informaçoes do site no rodape
 const Footer = () => {
   return (
     <footer className={styles.footer}>

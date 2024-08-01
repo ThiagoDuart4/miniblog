@@ -60,13 +60,13 @@ const Login = () => {
         </label>
 
         {!loading && (
-          <button type="submit" className=".btn">
+          <button type="submit" className="btn">
             {" "}
             Enviar
           </button>
         )}
         {loading && (
-          <button type="submit" disabled>
+          <button type="submit" className="btn" disabled>
             {" "}
             aguarde...
           </button>

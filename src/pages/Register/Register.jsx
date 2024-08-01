@@ -22,6 +22,8 @@ const Register = () => {
       confirmPassword,
     };
 
+
+    console.log(user)
     setErr("");
 
     if (password !== confirmPassword) {

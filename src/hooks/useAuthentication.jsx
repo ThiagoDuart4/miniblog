@@ -1,34 +1,52 @@
+// Hooks de autentificação dp usuario 
+
+// chamando o firebase para o react reconhecer
 import { db } from "../firebase/config";
 
+// importando alguns parametos utilizado para pegar as informaçoes no firebase
+
 import {
+  // Pegando a autentificação do usuarip
   getAuth,
+  // Utilizado para criar um usuario
   createUserWithEmailAndPassword,
+  // utilizado para que verifique se há um usuario e assim liberar ele para acessar, ou seja, fazer login
   signInWithEmailAndPassword,
+  //  Atualização
   updateProfile,
+  // Sair do site
   signOut,
 } from "firebase/auth";
 
+// useState
 import { useState, useEffect } from "react";
 
+//  Criando uma constante de autentificação e ja exportando ela.
+
 export const useAuthentication = () => {
+  // Verificação de possivel erro, sistema de carregamento e limpeza de dados
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(null);
   const [cancelled, setCancelled] = useState(null);
 
+  // recuperando o paramentro do firebase e colocando em uma constante
   const auth = getAuth();
 
+  // limpeza de dados
   function checkifIsCancelled() {
     if (cancelled) {
       return;
     }
   }
-
+// Criação du usuario
   const createUser = async (data) => {
+    //  limpeza de dados, carregamento e verificação de possiveis erros.
     checkifIsCancelled();
 
     setLoading(true);
     setErr(null);
 
+    // aqui estou enviando um objeto user com a função de criar para o firebase, criando e enviando, email, password e name
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -37,12 +55,14 @@ export const useAuthentication = () => {
       );
 
       await updateProfile(user, {
-        name: data.name,
+        displayName: data.name,
       });
-    } catch (err) {
+    } 
+  catch (err) {
       console.log(err.message);
       console.log(typeof err.message);
 
+      // verificando o erro dessa requisição e enviando para o user Err
       let systemErrorMessage;
 
       if (err.message.includes("Password")) {
@@ -59,7 +79,7 @@ export const useAuthentication = () => {
     setLoading(false);
   };
 
-  // LOgout
+  // LOgout, deslogaNDO USUARIO
 
   const logout = () => {
     checkifIsCancelled();
@@ -67,7 +87,7 @@ export const useAuthentication = () => {
     signOut(auth);
   };
 
-  // LOGIN
+  // lOGIN 
 
   const login = async (data) => {
     checkifIsCancelled();
