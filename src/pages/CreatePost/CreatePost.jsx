@@ -38,7 +38,7 @@ const handleSubmit = async (e) => {
   }
 
   // Split and clean tags
-  const tagsArray = tags.split('.').map(tag => tag.trim().toLocaleLowerCase());
+  const tagsArray = tags.split(',').map(tag => tag.trim().toLocaleLowerCase());
 
   // Check for empty fields
   if (!title || !image || !tags || !body) {

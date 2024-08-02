@@ -26,9 +26,10 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
       try {
         let q;
 
-
+// verificando se existe algo dentro de search
         if (search) {
-          q = await query( collectionRef, where('tags','array-contain',search),
+      //  verificando se dentro das minhas coleçoes do firebase se dentro do meu array tags baseado pelo parametro array contain que me ajuda a procurarnd dentro desse array e verificar se realmente existe o que tem dentro de search, e comm isso ordenando de forma descendente, do mais novo pro mais velho.
+          q = await query( collectionRef, where('tagsArray','array-contains',search),
         orderBy('createdAt', 'desc')
         )
         }

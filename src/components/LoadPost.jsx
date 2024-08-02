@@ -37,7 +37,7 @@ const LoadPost = ({ post }) => {
           ))}
  
       </div>
-      <Link to ={'/posts/${post.id}'} className="btn btn-outline"> Ler mais</Link>
+      <Link to ={`/post/${post.id}`} className="btn btn-outline"> Ler mais</Link>
     </div>
   );
 };
