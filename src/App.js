@@ -9,6 +9,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Post from './pages/Post/Post';
 // Visualiza o state real do usuario la no firebase
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -22,6 +23,7 @@ import { AuthProvider } from './context/AuthContext';
 import  NavBar from "./components/NavBar"
 import  Footer from "./components/Footer"
 import { set } from 'firebase/database';
+
 
 
 
@@ -54,6 +56,8 @@ return <p>Carregando...</p>
               <Route path='/' element={<Home/>}/>
               <Route path='/about' element={<About/>}/>
               <Route path='/search' element={<Search/>}/>
+
+              <Route path='/post/:id' element={<Post/>}/>
               <Route path='/login' element={!user  ? <Login/> : <Navigate to="/"/>}/>
               <Route path='/registrar' element={!user ? <Register/> : <Navigate to ='/'/>}/>
               <Route path='/posts/create' element={ user ? <CreatePost/>: <Navigate to ='/'/>}/>

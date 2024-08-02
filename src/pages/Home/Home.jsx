@@ -22,8 +22,9 @@ const Home = () => {
     e.preventDefault()
 
     if (query) {
-       return Navigate('/search?q=${query}')
+       return Navigate(`/search?q=${query}`)
     }
+    else alert('tags inwxistente')
 
   }
 
