@@ -10,6 +10,7 @@ import Register from './pages/Register/Register';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Post from './pages/Post/Post';
+import EditPost from './pages/EditPost/EditPost';
 // Visualiza o state real do usuario la no firebase
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -61,6 +62,7 @@ return <p>Carregando...</p>
               <Route path='/login' element={!user  ? <Login/> : <Navigate to="/"/>}/>
               <Route path='/registrar' element={!user ? <Register/> : <Navigate to ='/'/>}/>
               <Route path='/posts/create' element={ user ? <CreatePost/>: <Navigate to ='/'/>}/>
+              <Route path='/post/edit/:id' element={ user ? <EditPost/>: <Navigate to ='/'/>}/>
               <Route path='/dashboard' element={user ? <Dashboard/> : <Navigate to ='/'/>}/>
             </Routes>
           </div>

@@ -19,7 +19,7 @@ const CreatePost = () => {
 const {insertDocument,response} = useInsertDocument('posts')
 const {user} = useAuthValue()
 
-console.log(user)
+
 const navigate = useNavigate()
 
 
